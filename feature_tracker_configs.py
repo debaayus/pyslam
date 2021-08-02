@@ -184,7 +184,7 @@ class FeatureTrackerConfigs(object):
                       detector_type = FeatureDetectorTypes.SUPERPOINT, 
                       descriptor_type = FeatureDescriptorTypes.SUPERPOINT, 
                       match_ratio_test = kRatioTest,                               
-                      tracker_type = kTrackerType)
+                      tracker_type = FeatureTrackerTypes.DES_SUPERGLUE)
 
     CONTEXTDESC = dict(num_features=kNumFeatures,                   
                        num_levels = 1,                                  
