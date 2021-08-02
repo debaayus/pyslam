@@ -21,6 +21,7 @@ import cv2
 from parameters import Parameters  
 from enum import Enum
 from collections import defaultdict
+from superglue.models import superglue
 
 
 kRatioTest = Parameters.kFeatureMatchRatioTest
@@ -30,6 +31,7 @@ class FeatureMatcherTypes(Enum):
     NONE = 0
     BF = 1     
     FLANN = 2
+    SUPERGLUE = 3
 
 
 def feature_matcher_factory(norm_type=cv2.NORM_HAMMING, cross_check=False, ratio_test=kRatioTest, type=FeatureMatcherTypes.FLANN):
@@ -37,6 +39,8 @@ def feature_matcher_factory(norm_type=cv2.NORM_HAMMING, cross_check=False, ratio
         return BfFeatureMatcher(norm_type=norm_type, cross_check=cross_check, ratio_test=ratio_test, type=type)
     if type == FeatureMatcherTypes.FLANN:
         return FlannFeatureMatcher(norm_type=norm_type, cross_check=cross_check, ratio_test=ratio_test, type=type)
+    if type == FeatureMatcherTypes.SUPERGLUE:
+        return SuperGlueFeatureMatcher()
     return None 
 
 
@@ -218,3 +222,5 @@ class FlannFeatureMatcher(FeatureMatcher):
         self.matcher = cv2.FlannBasedMatcher(self.index_params, self.search_params)  
         self.matcher_name = 'FlannFeatureMatcher'                                                
 
+class SuperGlueFeatureMatcher(FeatureMatcher):
+    pass

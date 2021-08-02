@@ -38,7 +38,8 @@ kRatioTest = Parameters.kFeatureMatchRatioTest
 class FeatureTrackerTypes(Enum):
     LK        = 0   # Lucas Kanade pyramid optic flow (use pixel patch as "descriptor" and matching by optimization)
     DES_BF    = 1   # descriptor-based, brute force matching with knn 
-    DES_FLANN = 2   # descriptor-based, FLANN-based matching 
+    DES_FLANN = 2   # descriptor-based, FLANN-based matching
+    DES_SUPERGLUE = 3 #Superglue addition 
 
 
 def feature_tracker_factory(num_features=kMinNumFeatureDefault, 
@@ -204,6 +205,8 @@ class DescriptorFeatureTracker(FeatureTracker):
             self.matching_algo = FeatureMatcherTypes.FLANN
         elif tracker_type == FeatureTrackerTypes.DES_BF:
             self.matching_algo = FeatureMatcherTypes.BF
+        elif tracker_type == FeatureTrackerTypes.DES_SUPERGLUE:
+            self.matching_algo = FeatureMatcherTypes.SUPERGLUE
         else:
             raise ValueError("Unmanaged matching algo for feature tracker %s" % self.tracker_type)                   
                     
